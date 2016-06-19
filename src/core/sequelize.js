@@ -20,3 +20,5 @@ exports.models = oModels = {
 }
 
 // Relations
+oModels.Project.belongsTo( oModels.User )
+oModels.User.hasMany( oModels.UserProjects )
