@@ -21,7 +21,7 @@ exports.db = oSequelize = new _sequelize2.default("done", "root", "root", {
 
 // Models
 exports.models = oModels = {
-    "User": oSequelize.import("../models/user.js")
+    User: oSequelize.import("../models/user.js")
 };
 
 // Relations
