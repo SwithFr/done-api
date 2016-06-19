@@ -4,8 +4,10 @@
 
 "use strict"
 
+import middleware from "../core/middleware"
+
 exports.init = function( oApp ) {
 
-    oApp.get( '/users', require( '../controllers/users/list' ) )
+    oApp.get( '/users', middleware.isAuthenticated, require( '../controllers/users/list' ) )
 
 }
