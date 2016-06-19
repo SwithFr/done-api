@@ -12,5 +12,5 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.init = function (oApp) {
 
-  oApp.get('/users', _middleware2.default.isAuthenticated, require('../controllers/users/list'));
+  oApp.post('/users/login', require('../controllers/users/login'));
 };
