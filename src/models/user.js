@@ -21,7 +21,7 @@ export default function( oSequelize, DataTypes  ) {
             allowNull: false,
             required: true,
             set: function( sValue ) {
-                this.setDataValue( "password", sValue.trim()  && zouti.whirlpool( "sValue" ) )
+                this.setDataValue( "password", sValue.trim()  && zouti.whirlpool( sValue ) )
             }
         },
         token: {
