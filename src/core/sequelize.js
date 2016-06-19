@@ -14,7 +14,9 @@ exports.db = oSequelize = new Sequlize( "done", "root", "root", {
 
 // Models
 exports.models = oModels = {
-    User: oSequelize.import( "../models/user.js" )
+    User: oSequelize.import( "../models/user.js" ),
+    Project: oSequelize.import( "../models/project.js" ),
+    UserProjects: oSequelize.import( "../models/user_projects.js" )
 }
 
 // Relations
