@@ -21,5 +21,6 @@ oApp.use( require( "./middleware").log )
 // Load routes
 require( "../routes/users" ).init( oApp )
 require( "../routes/projects" ).init( oApp )
+require( "../routes/tasks" ).init( oApp )
 
 oApp.listen( 23456 )
