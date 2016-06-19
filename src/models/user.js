@@ -20,7 +20,7 @@ export default function( oSequelize, DataTypes  ) {
             type: DataTypes.STRING,
             allowNull: false,
             required: true,
-            set: ( sValue ) => {
+            set: function( sValue ) {
                 this.setDataValue( "password", sValue.trim()  && zouti.whirlpool( "sValue" ) )
             }
         },
