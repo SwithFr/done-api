@@ -36,7 +36,7 @@ exports.json = _json = {
         oRes.status(iStatusCode || 500).json({
             "url": "[" + oReq.method + "] - " + oReq.url,
             "status": iStatusCode || 500,
-            "error": oError || oError.errors && oError.errors[0].message || oError.message,
+            "error": oError,
             "data": null
         });
     }
@@ -47,7 +47,10 @@ exports.isAuthenticated = function (oReq, oRes, next) {
     var sUserToken = oReq.headers.usertoken;
 
     if (!iUserId || !sUserToken) {
-        return _json.error(oReq, oRes, new Error("UNAUTHORIZED"), 401);
+        return _json.error(oReq, oRes, {
+            type: 'UNAUTHORIZED',
+            message: 'You must be logged in in order to use this API'
+        }, 401);
     }
 
     User.findById(iUserId).then(function (oUser) {
@@ -55,7 +58,10 @@ exports.isAuthenticated = function (oReq, oRes, next) {
             oRes.locals.user = oUser;
             next();
         } else {
-            return _json.error(oReq, oRes, new Error("INVALID_TOKEN"), 401);
+            return _json.error(oReq, oRes, {
+                type: 'INVALID_TOKEN',
+                message: 'Your token was expired'
+            }, 401);
         }
     });
 };
