@@ -14,5 +14,5 @@ exports.init = function( oApp ) {
     oApp.post( '/tasks/:projectId', middleware.isAuthenticated, require( '../controllers/tasks/create' ) )
 
     // List all project's tasks
-    //oApp.get( '/tasks', middleware.isAuthenticated, require( '../controllers/tasks/list' ) )
+    oApp.get( '/tasks/:projectId', middleware.isAuthenticated, require( '../controllers/tasks/list' ) )
 }
