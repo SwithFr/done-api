@@ -10,4 +10,7 @@ import middleware from "../core/middleware"
 exports.init = function( oApp ) {
     // Create project
     oApp.post( '/projects', middleware.isAuthenticated, require( '../controllers/projects/create' ) )
+
+    // List all user's projects
+    oApp.get( '/projects', middleware.isAuthenticated, require( '../controllers/projects/list' ) )
 }
