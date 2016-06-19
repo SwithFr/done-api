@@ -8,6 +8,6 @@ import middleware from "../core/middleware"
 
 exports.init = function( oApp ) {
 
-    oApp.get( '/users', middleware.isAuthenticated, require( '../controllers/users/list' ) )
+    oApp.post( '/users/login', require( '../controllers/users/login' ) )
 
 }
