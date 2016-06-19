@@ -23,6 +23,8 @@ oApp.use(_bodyParser2.default.urlencoded({
   extended: true
 }));
 
+oApp.use(require("./middleware").log);
+
 // Load routes
 require("../routes/users").init(oApp);
 
