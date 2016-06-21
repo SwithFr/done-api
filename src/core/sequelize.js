@@ -35,3 +35,5 @@ oModels.Task.hasMany( oModels.TaskTags )
 
 oModels.Tag.belongsTo( oModels.User )
 
+oModels.State.belongsTo( oModels.User )
+
