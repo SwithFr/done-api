@@ -29,6 +29,9 @@ module.exports = function( oReq, oRes ) {
     oTask.note = sNote
     oTask.user_id = +oReq.headers.userid
     oTask.project_id = +oReq.params.projectId
+    if ( +oReq.body.state_id ) {
+        oTask.state_id = +oReq.body.state_id
+    }
 
     oTask
         .validate()
