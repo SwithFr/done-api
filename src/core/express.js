@@ -23,5 +23,6 @@ require( "../routes/users" ).init( oApp )
 require( "../routes/projects" ).init( oApp )
 require( "../routes/tasks" ).init( oApp )
 require( "../routes/tags" ).init( oApp )
+require( "../routes/states" ).init( oApp )
 
 oApp.listen( 23456 )
