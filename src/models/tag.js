@@ -23,5 +23,5 @@ export default function( oSequelize, DataTypes  ) {
         underscored: true
     }
 
-    return oSequelize.define( "Tags", oColumns, oProperties )
+    return oSequelize.define( "Tag", oColumns, oProperties )
 }
