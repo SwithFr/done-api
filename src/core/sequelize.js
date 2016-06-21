@@ -18,12 +18,20 @@ exports.models = oModels = {
     Project: oSequelize.import( "../models/project.js" ),
     UserProjects: oSequelize.import( "../models/user_projects.js" ),
     Tag: oSequelize.import( "../models/tag.js" ),
-    Task: oSequelize.import( "../models/task.js" )
+    Task: oSequelize.import( "../models/task.js" ),
+    TaskTags: oSequelize.import( "../models/task_tags.js" ),
+    State: oSequelize.import( "../models/state.js" )
 }
 
 // Relations
 oModels.Project.belongsTo( oModels.User )
+
 oModels.User.hasMany( oModels.UserProjects )
+
 oModels.Task.belongsTo( oModels.Project )
 oModels.Task.belongsTo( oModels.User )
+oModels.Task.belongsTo( oModels.State )
+oModels.Task.hasMany( oModels.TaskTags )
+
 oModels.Tag.belongsTo( oModels.User )
+
