@@ -48,8 +48,8 @@ module.exports = function( oReq, oRes ) {
                         login: oTask.User.login
                     },
                     state: {
-                        id: oTask.State.id,
-                        name: oTask.State.name
+                        id: oTask.State && oTask.State.id,
+                        name: oTask.State && oTask.State.name
                     }
                 }
             } ) )
