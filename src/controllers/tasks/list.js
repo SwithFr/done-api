@@ -12,12 +12,15 @@ import { models } from "../../core/sequelize"
 let json = middleware.json
 let Task = models.Task
 let User = models.User
+let State = models.State
 
 module.exports = function( oReq, oRes ) {
     Task
         .findAll( {
             include: [ {
                 model: User
+            }, {
+                model: State
             } ],
             where: {
                 project_id: +oReq.params.projectId
@@ -43,6 +46,10 @@ module.exports = function( oReq, oRes ) {
                     user: {
                         id: oTask.User.id,
                         login: oTask.User.login
+                    },
+                    state: {
+                        id: oTask.State.id,
+                        name: oTask.State.name
                     }
                 }
             } ) )
