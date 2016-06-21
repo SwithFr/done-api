@@ -34,7 +34,7 @@ module.exports = function( oReq, oRes ) {
                 return json.error( oReq, oRes, oValidationReport.errors, 400 )
             }
 
-            oProject
+            oTag
                 .save()
                 .catch( function( oError ) {
                     return json.error( oReq, oRes, oError, 500 )
