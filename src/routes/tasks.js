@@ -11,7 +11,7 @@ import middleware from "../core/middleware"
 
 exports.init = function( oApp ) {
     // Create task
-    oApp.post( '/tasks/:projectId', middleware.isAuthenticated, require( '../controllers/tasks/create' ) )
+    oApp.post( '/tasks', middleware.isAuthenticated, require( '../controllers/tasks/create' ) )
 
     // List all project's tasks
     oApp.get( '/tasks/:projectId', middleware.isAuthenticated, require( '../controllers/tasks/list' ) )
