@@ -28,7 +28,7 @@ module.exports = function( oReq, oRes ) {
     oTask.title = sTitle
     oTask.note = sNote
     oTask.user_id = +oReq.headers.userid
-    oTask.project_id = +oReq.params.projectId
+    oTask.project_id = +oReq.body.project_id
     if ( +oReq.body.state_id ) {
         oTask.state_id = +oReq.body.state_id
     }
