@@ -42,6 +42,7 @@ module.exports = function( oReq, oRes ) {
                 return {
                     id: oTask.id,
                     title: oTask.title,
+                    note: oTask.note,
                     created_at: oTask.created_at,
                     user: {
                         id: oTask.User.id,
