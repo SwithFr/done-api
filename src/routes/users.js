@@ -12,4 +12,7 @@ exports.init = function( oApp ) {
 
     // Create user
     oApp.post( '/users', require( '../controllers/users/create' ) )
+
+    // Delete user
+    oApp.delete( '/users/:id', middleware.isAuthenticated, require( '../controllers/users/delete' ) )
 }
