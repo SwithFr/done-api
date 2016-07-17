@@ -13,15 +13,16 @@ let json = middleware.json
 let Task = models.Task
 let User = models.User
 let State = models.State
+let Tag = models.Tag
 
 module.exports = function( oReq, oRes ) {
     Task
         .findAll( {
-            include: [ {
-                model: User
-            }, {
-                model: State
-            } ],
+            include: [
+                { model: User },
+                { model: State },
+                { model: Tag }
+            ],
             where: {
                 project_id: +oReq.params.projectId
             },
@@ -39,6 +40,7 @@ module.exports = function( oReq, oRes ) {
             }
 
             return json.send( oReq, oRes, oTasks.map( ( oTask ) => {
+
                 return {
                     id: oTask.id,
                     title: oTask.title,
@@ -51,7 +53,13 @@ module.exports = function( oReq, oRes ) {
                     state: {
                         id: oTask.State && oTask.State.id,
                         name: oTask.State && oTask.State.name
-                    }
+                    },
+                    tags: oTask.Tags.map( ( oTag ) => {
+                        return {
+                            id: oTag.id,
+                            name: oTag.name
+                        }
+                    } )
                 }
             } ) )
         } )

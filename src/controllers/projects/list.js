@@ -16,9 +16,9 @@ let User = models.User
 module.exports = function( oReq, oRes ) {
     Project
         .findAll( {
-            include: [ {
-                model: User
-            } ],
+            include: [
+                { model: User },
+            ],
             where: {
                 user_id: +oReq.headers.userid
             },

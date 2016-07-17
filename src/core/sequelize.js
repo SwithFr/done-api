@@ -31,7 +31,7 @@ oModels.User.hasMany( oModels.UserProjects )
 oModels.Task.belongsTo( oModels.Project )
 oModels.Task.belongsTo( oModels.User )
 oModels.Task.belongsTo( oModels.State )
-oModels.Task.hasMany( oModels.TaskTags )
+oModels.Task.belongsToMany( oModels.Tag, { through: oModels.TaskTags } )
 
 oModels.Tag.belongsTo( oModels.User )
 
