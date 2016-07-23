@@ -12,5 +12,5 @@ exports.init = function( oApp ) {
     oApp.post( '/states', middleware.isAuthenticated, require( '../controllers/states/create' ) )
 
     // List all user's states
-    //oApp.get( '/states', middleware.isAuthenticated, require( '../controllers/states/list' ) )
+    oApp.get( '/states', middleware.isAuthenticated, require( '../controllers/states/list' ) )
 }
