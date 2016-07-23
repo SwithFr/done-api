@@ -41,7 +41,6 @@ const createTask = ( oTaskData, aTags = null ) => {
                     return json.error( glob.req, glob.res, oError, 500 )
                 } )
                 .then( ( oSavedTask ) => {
-
                     if ( aTags ) {
                         oSavedTask.setTags( aTags ).then( () => {
                             return send( oSavedTask, aTags )
@@ -49,7 +48,6 @@ const createTask = ( oTaskData, aTags = null ) => {
                     } else {
                         return send( oSavedTask )
                     }
-
                 } )
         } )
 }
