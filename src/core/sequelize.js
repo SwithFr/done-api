@@ -19,7 +19,6 @@ exports.models = oModels = {
     UserProjects: oSequelize.import( "../models/user_projects.js" ),
     Tag: oSequelize.import( "../models/tag.js" ),
     Task: oSequelize.import( "../models/task.js" ),
-    //TaskTags: oSequelize.import( "../models/task_tags.js" ),
     State: oSequelize.import( "../models/state.js" )
 }
 
