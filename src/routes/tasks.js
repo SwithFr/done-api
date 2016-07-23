@@ -15,4 +15,7 @@ exports.init = function( oApp ) {
 
     // List all project's tasks
     oApp.get( '/tasks/:projectId', middleware.isAuthenticated, require( '../controllers/tasks/list' ) )
+
+    // Delete tasks
+    oApp.delete( '/tasks/:id', middleware.isAuthenticated, require( '../controllers/tasks/delete' ) )
 }
