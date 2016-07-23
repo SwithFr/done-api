@@ -6,78 +6,89 @@
 "use strict"
 
 import middleware from "../../core/middleware"
-import zouti from 'zouti'
 import { models } from "../../core/sequelize"
 
 let json = middleware.json
 let Task = models.Task
-let TaskTag = models.TaskTags
+let Tag = models.Tag
 
-const saveTaskTagRelation = ( iTaskId, iTagId, oReq, oRes ) => {
-    let oTaskTag = TaskTag.build()
-
-    oTaskTag.task_id = iTaskId
-    oTaskTag.tag_id = iTagId
-
-    oTaskTag
-        .save()
-        .catch( ( oError ) => {
-            return json.error( oReq, oRes, oError, 500 )
-        } )
-        .then( ( oSavedTaskTagRelation ) => {
-            return oSavedTaskTagRelation
-        })
+const getTags = ( oTaskData, fNext ) => {
+    Tag.findAll( {
+        where: {
+            user_id: 1,
+            id: {
+                $in: oTaskData.aTagsId
+            }
+        }
+    } ).then( ( oTags ) => {
+        fNext( oTaskData, oTags )
+    } )
 }
 
+const createTask = ( oTaskData, aTags = null ) => {
+    let oTask = Task.build( oTaskData )
+
+    oTask
+        .validate()
+        .then( ( oValidationReport ) => {
+            if( oValidationReport ) {
+                return json.error( glob.req, glob.res, oValidationReport.errors, 400 )
+            }
+
+            oTask
+                .save()
+                .catch( ( oError ) => {
+                    return json.error( glob.req, glob.res, oError, 500 )
+                } )
+                .then( ( oSavedTask ) => {
+
+                    if ( aTags ) {
+                        oSavedTask.setTags( aTags ).then( () => {
+                            return send( oSavedTask, aTags )
+                        } )
+                    } else {
+                        return send( oSavedTask )
+                    }
+
+                } )
+        } )
+}
+
+const send = ( oSavedTask, aTags = [] ) => {
+    return json.send( glob.req, glob.res, {
+        id: oSavedTask.id,
+        title: oSavedTask.title,
+        user_id: oSavedTask.user_id,
+        project_id: oSavedTask.project_id,
+        tags: aTags
+    } )
+}
+
+let glob = {}
+
 module.exports = function( oReq, oRes ) {
-    let oTask = Task.build()
+    glob.req = oReq
+    glob.res = oRes
 
-    let sTitle = ( oReq.body.title || '' ).trim()
-    let sNote = ( oReq.body.note || '' ).trim()
-    let iTagId = +oReq.body.tag_id || null
+    let oTaskData = {
+        title: ( oReq.body.title || '' ).trim(),
+        note: ( oReq.body.note || '' ).trim(),
+        aTagsId: oReq.body.tag_id || null,
+        user_id: +oReq.headers.userid,
+        state_id: +oReq.body.state_id || null,
+        project_id: +oReq.body.project_id
+    }
 
-    if ( !sTitle ) {
+    if ( !oTaskData.title ) {
         return json.error( oReq, oRes, {
             type: 'EMPTY_PARAMS',
             message: 'You must provide a non empty title'
         }, 400 )
     }
 
-    oTask.title = sTitle
-    oTask.note = sNote
-    oTask.user_id = +oReq.headers.userid
-    oTask.project_id = +oReq.body.project_id
-
-    if ( +oReq.body.state_id ) {
-        oTask.state_id = +oReq.body.state_id
+    if ( oTaskData.aTagsId ) {
+        getTags( oTaskData, createTask  )
+    } else {
+        createTask( oTaskData )
     }
-
-    oTask
-        .validate()
-        .then( ( oValidationReport ) => {
-            if( oValidationReport ) {
-                return json.error( oReq, oRes, oValidationReport.errors, 400 )
-            }
-
-            oTask
-                .save()
-                .catch( ( oError ) => {
-                    return json.error( oReq, oRes, oError, 500 )
-                } )
-                .then( ( oSavedTask ) => {
-                    let taskTagRelation = null
-
-                    if ( iTagId ) {
-                        taskTagRelation = saveTaskTagRelation( oSavedTask.id, iTagId, oReq, oRes )
-                    }
-
-                   return json.send( oReq, oRes, {
-                        id: oSavedTask.id,
-                        title: oSavedTask.title,
-                        user_id: oSavedTask.user_id,
-                        project_id: oSavedTask.project_id,
-                        tags: taskTagRelation || null
-                    } )
-                } )
-        } )
 }

@@ -39,6 +39,15 @@ module.exports = function( oReq, oRes ) {
                 }, 404 )
             }
 
+            let tags = []
+            for ( var oTask of oTasks ) {
+                oTask.getTags().then( ( associatedTags ) => {
+                    tags.push( associatedTags )
+                } )
+            }
+
+            return json.send( oReq, oRes, tags )
+
             return json.send( oReq, oRes, oTasks.map( ( oTask ) => {
 
                 return {

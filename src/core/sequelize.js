@@ -19,7 +19,7 @@ exports.models = oModels = {
     UserProjects: oSequelize.import( "../models/user_projects.js" ),
     Tag: oSequelize.import( "../models/tag.js" ),
     Task: oSequelize.import( "../models/task.js" ),
-    TaskTags: oSequelize.import( "../models/task_tags.js" ),
+    //TaskTags: oSequelize.import( "../models/task_tags.js" ),
     State: oSequelize.import( "../models/state.js" )
 }
 
@@ -31,7 +31,8 @@ oModels.User.hasMany( oModels.UserProjects )
 oModels.Task.belongsTo( oModels.Project )
 oModels.Task.belongsTo( oModels.User )
 oModels.Task.belongsTo( oModels.State )
-oModels.Task.belongsToMany( oModels.Tag, { through: oModels.TaskTags } )
+oModels.Task.belongsToMany( oModels.Tag, { through: 'TaskTags' } )
+oModels.Tag.belongsToMany( oModels.Task, { through: 'TaskTags' } )
 
 oModels.Tag.belongsTo( oModels.User )
 
