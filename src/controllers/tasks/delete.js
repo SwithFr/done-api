@@ -6,8 +6,6 @@
 
 "use strict"
 
-
-
 import middleware from "../../core/middleware"
 import { models } from "../../core/sequelize"
 
@@ -17,11 +15,7 @@ let Task = models.Task
 module.exports = function( oReq, oRes ) {
 
     Task
-        .findOne( {
-            where: {
-                id: +oReq.params.id
-            }
-        } )
+        .findById( +oReq.params.id )
         .catch( ( oError ) => {
             return json.error( oReq, oRes, oError, 500 )
         } )

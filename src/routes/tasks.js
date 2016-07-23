@@ -18,4 +18,7 @@ exports.init = function( oApp ) {
 
     // Delete tasks
     oApp.delete( '/tasks/:id', middleware.isAuthenticated, require( '../controllers/tasks/delete' ) )
+
+    // Search tasks
+    oApp.post( '/tasks/search', middleware.isAuthenticated, require( '../controllers/tasks/search' ) )
 }

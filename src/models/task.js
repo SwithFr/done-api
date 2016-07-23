@@ -18,6 +18,10 @@ export default function( oSequelize, DataTypes  ) {
         note: {
             type: DataTypes.TEXT,
             allowNull: true
+        },
+        dueTo: {
+            type: DataTypes.DATE,
+            allowNull: true
         }
     }
 
