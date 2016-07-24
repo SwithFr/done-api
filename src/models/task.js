@@ -19,7 +19,7 @@ export default function( oSequelize, DataTypes  ) {
             type: DataTypes.TEXT,
             allowNull: true
         },
-        dueTo: {
+        due_to: {
             type: DataTypes.DATE,
             allowNull: true
         }
