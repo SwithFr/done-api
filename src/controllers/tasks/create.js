@@ -74,6 +74,7 @@ module.exports = function( oReq, oRes ) {
         aTagsId: oReq.body.tag_id || null,
         user_id: +oReq.headers.userid,
         state_id: +oReq.body.state_id || null,
+        due_to: oReq.body.due_to || null,
         project_id: +oReq.body.project_id
     }
 
