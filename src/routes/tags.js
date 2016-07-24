@@ -13,4 +13,7 @@ exports.init = function( oApp ) {
 
     // List all user's tags
     oApp.get( '/tags', middleware.isAuthenticated, require( '../controllers/tags/list' ) )
+
+    // Delete tag
+    oApp.delete( '/tags/:id', middleware.isAuthenticated, require( '../controllers/tags/delete' ) )
 }
