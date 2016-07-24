@@ -13,4 +13,7 @@ exports.init = function( oApp ) {
 
     // List all user's states
     oApp.get( '/states', middleware.isAuthenticated, require( '../controllers/states/list' ) )
+
+    // Delete state
+    oApp.delete( '/states/:id', middleware.isAuthenticated, require( '../controllers/states/delete' ) )
 }
