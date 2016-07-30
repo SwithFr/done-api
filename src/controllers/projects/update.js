@@ -8,20 +8,10 @@
 
 import middleware from "../../core/middleware"
 import { models } from "../../core/sequelize"
+import { Saver } from "../../models/global"
 
 let json = middleware.json
 let Project = models.Project
-
-const saveUpdatedProject = ( oProjectData, onError, onSuccess ) => {
-    oProjectData
-        .save()
-        .catch( ( oError ) => {
-            return onError( oError )
-        } )
-        .then( ( oSavedUpdatedProject ) => {
-            onSuccess( oSavedUpdatedProject )
-        } )
-}
 
 module.exports = ( oReq, oRes ) => {
     let sName = ( oReq.body.name || '' ).trim()
@@ -48,7 +38,7 @@ module.exports = ( oReq, oRes ) => {
 
             oUpdatedProject.name = sName
 
-            saveUpdatedProject( oUpdatedProject, ( oError ) => {
+            Saver( oUpdatedProject, ( oError ) => {
                 return json.error( oReq, oRes, oError, 500 )
             }, ( oSavedUpdatedProject ) => {
                 return json.send( oReq, oRes, oSavedUpdatedProject )
