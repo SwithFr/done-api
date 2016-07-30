@@ -14,6 +14,6 @@ exports.init = function( oApp ) {
     // List all user's projects
     oApp.get( '/projects', middleware.isAuthenticated, require( '../controllers/projects/list' ) )
 
-    // List all user's projects
+    // Update project
     oApp.patch( '/projects/:id', middleware.isAuthenticated, require( '../controllers/projects/update' ) )
 }

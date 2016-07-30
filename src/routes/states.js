@@ -16,4 +16,7 @@ exports.init = function( oApp ) {
 
     // Delete state
     oApp.delete( '/states/:id', middleware.isAuthenticated, require( '../controllers/states/delete' ) )
+
+    // Update state
+    oApp.patch( '/states/:id', middleware.isAuthenticated, require( '../controllers/states/update' ) )
 }
