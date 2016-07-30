@@ -19,6 +19,9 @@ exports.init = function( oApp ) {
     // Delete tasks
     oApp.delete( '/tasks/:id', middleware.isAuthenticated, require( '../controllers/tasks/delete' ) )
 
+    // Update task
+    oApp.patch( '/tasks/:id', middleware.isAuthenticated, require( '../controllers/tasks/update' ) )
+
     // Search tasks
     oApp.post( '/tasks/search', middleware.isAuthenticated, require( '../controllers/tasks/search' ) )
 }

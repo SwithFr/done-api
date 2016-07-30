@@ -39,7 +39,6 @@ module.exports = function( oReq, oRes ) {
             }
 
             return json.send( oReq, oRes, oTasks.map( ( oTask ) => {
-
                 return {
                     id: oTask.id,
                     title: oTask.title,
