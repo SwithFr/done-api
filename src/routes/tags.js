@@ -16,4 +16,7 @@ exports.init = function( oApp ) {
 
     // Delete tag
     oApp.delete( '/tags/:id', middleware.isAuthenticated, require( '../controllers/tags/delete' ) )
+
+    // Update tag
+    oApp.patch( '/tags/:id', middleware.isAuthenticated, require( '../controllers/tags/update' ) )
 }
