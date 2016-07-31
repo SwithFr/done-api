@@ -11,11 +11,16 @@ import { models } from "../../core/sequelize"
 
 let json = middleware.json
 let Task = models.Task
+let Tag = models.Tag
 
 module.exports = function( oReq, oRes ) {
     console.log('okkkkkk');
     Task
-        .findById( +oReq.params.id )
+        .findById( +oReq.params.id, {
+            include: [
+                { model: Tag },
+            ]
+        } )
         .catch( ( oError ) => {
             return json.error( oReq, oRes, oError, 500 )
         } )
